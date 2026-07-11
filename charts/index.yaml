@@ -3,7 +3,17 @@ entries:
   scum-chart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-07-11T14:02:02.763734502+02:00"
+    created: "2026-07-11T14:02:09.176729234+02:00"
+    description: A Helm chart for deploying SCUM
+    digest: 0d92de72158fec4c610349fa2a6bc70fba5566d37cd0c6ab80b2e7e8f2d4bce3
+    name: scum-chart
+    type: application
+    urls:
+    - scum-chart-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-07-11T14:02:09.176452605+02:00"
     description: A Helm chart for deploying SCUM
     digest: 88a5420a83117a5de997569c904fc00440a09ed0ba8b7532c42e933e0304fb80
     name: scum-chart
@@ -11,4 +21,4 @@ entries:
     urls:
     - scum-chart-0.2.6.tgz
     version: 0.2.6
-generated: "2026-07-11T14:02:02.763275954+02:00"
+generated: "2026-07-11T14:02:09.176100756+02:00"
