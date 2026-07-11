@@ -37,20 +37,13 @@ spec:
           env:
             - name: GAMEPORT
               value: {{ .Values.service.gamePort | toString | quote }}
-          livenessProbe:
-            exec:
-              command:
-              - cat
-              - /tmp/healthy
-            initialDelaySeconds: 10
-            periodSeconds: 10
           readinessProbe:
             exec:
               command:
               - cat
               - /tmp/healthy
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 30
       {{- if .Values.nodeSelector }}
       nodeSelector: {{ .Values.nodeSelector | toYaml | nindent 8}}
       {{- end }}
