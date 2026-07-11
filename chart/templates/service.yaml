@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "scum-chart.fullname" . }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "scum-chart.tags" . | nindent 4 }}
+    kind: service
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- include "scum-chart.tags" . | nindent 4 }}
+    kind: deployment
+  ports:
+    # Game Client Port
+    - name: game-client
+      protocol: UDP
+      port: {{ .Values.service.gamePort }}
+      targetPort: {{ .Values.service.gamePort }}
+      nodePort: {{ .Values.service.gamePort }} 
+    # RCON Port
+    - name: rcon
+      protocol: TCP      
+      port: {{ .Values.service.gamePort }}
+      targetPort: {{ .Values.service.gamePort }}
+      nodePort: {{ .Values.service.gamePort }}
+    # Raw UDP Socket Port (Game Client + 1)
+    - name: raw-socket
+      protocol: UDP
+      port: {{ add .Values.service.gamePort 1 }}
+      targetPort: {{ add .Values.service.gamePort 1 }}
+      nodePort: {{ add .Values.service.gamePort 1 }}
+    # Raw TCP Socket Port (Game Client + 1)
+    - name: raw-socket-tcp
+      protocol: TCP
+      port: {{ add .Values.service.gamePort 1 }}
+      targetPort: {{ add .Values.service.gamePort 1 }}
+      nodePort: {{ add .Values.service.gamePort 1 }}
+    # Steam Server Browser Port
+    - name: connect-port
+      protocol: UDP
+      port: {{ add .Values.service.gamePort 2 }}
+      targetPort: {{ add .Values.service.gamePort 2 }}
+      nodePort: {{ add .Values.service.gamePort 2 }}
+    # Steam Server Browser Port
+    - name: connect-port
+      protocol: UDP
+      port: {{ add .Values.service.gamePort 2 }}
+      targetPort: {{ add .Values.service.gamePort 2 }}
+      nodePort: {{ add .Values.service.gamePort 2 }}

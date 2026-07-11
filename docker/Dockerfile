@@ -28,6 +28,10 @@ RUN wget -O - https://dl.winehq.org/wine-builds/winehq.key | gpg --dearmor -o /e
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+RUN wget --timeout=30 --tries=3 https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz && \
+    tar -xvzf steamcmd_linux.tar.gz && \
+    rm /opt/steamcmd_linux.tar.gz
+
 ENV WINEDEBUG=-all
 ENV WINEARCH=win64
 ENV WINEPREFIX=/opt/wine64

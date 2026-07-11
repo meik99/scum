@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "scum-chart.fullname" . }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "scum-chart.tags" . | nindent 4 }}
+    kind: deployment
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "scum-chart.tags" . | nindent 6 }}
+      kind: deployment
+  template:
+    metadata:
+      labels:
+        {{- include "scum-chart.tags" . | nindent 8 }}
+        kind: deployment
+    spec:
+      {{- if .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.imagePullSecrets }}
+        - {{ . | toYaml }}
+      {{- end }}
+      {{- end }}
+      containers:
+        - name: {{ include "scum-chart.fullname" . }}
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          resources: {{ .Values.resources | toYaml | nindent 12 }}
+          volumeMounts:
+            - name: scumserver-data
+              mountPath: /opt/scumserver
+            - name: steamcmd
+              mountPath: /opt/steamcmd
+          env:
+            - name: GAMEPORT
+              value: {{ .Values.service.gamePort }}
+          livenessProbe:
+            exec:
+              command:
+              - cat
+              - /tmp/healthy
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+              - cat
+              - /tmp/healthy
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{ .Values.nodeSelector | toYaml | nindent 8}}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{ .Values.affinity | toYaml | nindent 8}}
+      {{- end }}
+      volumes: 
+        {{- include "scum-chart.volumes" . | nindent 8}}

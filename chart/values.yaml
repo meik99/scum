@@ -1,0 +1,41 @@
+global:
+  fullnameOverride: scum  
+
+# anyhting other than hostpath is impractical for now
+# I don't have a block device csi driver like cepth to test
+persistence:
+  hostPath:
+    enabled: true
+    gamePath: /mnt/disk1/scum
+    cmdPath: /mnt/disk1/scumcmd
+
+image:
+  name: harbor.rynkix.com/scum/server
+  tag: latest
+  imagePullSecrets: []
+# - name: harbor-pull-secret
+
+resources:
+  requests:
+    cpu: 12
+    memory: 32Gi
+
+nodeSelector: {}
+# scum: "true"
+
+affinity:  {}
+# nodeAffinity:
+#   requiredDuringSchedulingIgnoredDuringExecution:
+#     nodeSelectorTerms:
+#     - matchExpressions:
+#       - key: kubernetes.io/hostname
+#         operator: In
+#         values:
+#         - systemx
+
+# Until TCP- and UDP routes are a thing
+# anything other than nodeport doesn't really make sense
+# aside clusterIp maybe if played with port-forwarding
+service:
+  type: NodePort
+  gamePort: 30000
