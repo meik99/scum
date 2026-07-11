@@ -34,8 +34,6 @@ spec:
           volumeMounts:
             - name: scumserver-data
               mountPath: /opt/scumserver
-            - name: steamcmd
-              mountPath: /opt/steamcmd
           env:
             - name: GAMEPORT
               value: {{ .Values.service.gamePort }}
