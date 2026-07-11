@@ -43,8 +43,8 @@ spec:
       targetPort: {{ add .Values.service.gamePort 2 }}
       nodePort: {{ add .Values.service.gamePort 2 }}
     # Steam Server Browser Port
-    - name: connect-port
-      protocol: UDP
+    - name: connect-port-tcp
+      protocol: TCP
       port: {{ add .Values.service.gamePort 2 }}
       targetPort: {{ add .Values.service.gamePort 2 }}
       nodePort: {{ add .Values.service.gamePort 2 }}
