@@ -2,8 +2,8 @@
 scum-chart generates the fullname based on fullnameOverride or the release name.
 */ -}}
 {{- define "scum-chart.fullname" -}}
-  {{- if .Values.fullnameOverride -}}
-    {{- .Values.fullnameOverride | toString | quote -}}
+  {{- if .Values.global.fullnameOverride -}}
+    {{- .Values.global.fullnameOverride | toString | quote -}}
   {{- else -}}
     {{- .Release.Name | toString | quote -}}
   {{- end -}}
