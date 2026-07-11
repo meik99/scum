@@ -36,7 +36,7 @@ spec:
               mountPath: /opt/scumserver
           env:
             - name: GAMEPORT
-              value: {{ .Values.service.gamePort | toString }}
+              value: {{ .Values.service.gamePort | toString | quote }}
           livenessProbe:
             exec:
               command:
