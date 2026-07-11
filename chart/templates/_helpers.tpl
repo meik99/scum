@@ -19,8 +19,5 @@ name: {{ include "scum-chart.fullname" . }}
 - name: scumserver-data        
   hostPath:
     path: {{ .Values.persistence.hostPath.gamePath }}
-- name: steamcmd
-  hostPath:
-    path:  {{ .Values.persistence.hostPath.cmdPath }}
 {{- end -}}
 {{- end -}}

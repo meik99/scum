@@ -7,7 +7,6 @@ persistence:
   hostPath:
     enabled: true
     gamePath: /mnt/disk1/scum
-    cmdPath: /mnt/disk1/scumcmd
 
 image:
   name: harbor.rynkix.com/scum/server
