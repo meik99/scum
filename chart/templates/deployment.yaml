@@ -56,6 +56,9 @@ spec:
       {{- end }}
       {{- if .Values.affinity }}
       affinity: {{ .Values.affinity | toYaml | nindent 8}}
+      {{- end }}      
+      {{- if .Values.tolerations }}
+      tolerations: {{ .Values.tolerations | toYaml | nindent 8}}
       {{- end }}
       volumes: 
         {{- include "scum-chart.volumes" . | nindent 8}}
