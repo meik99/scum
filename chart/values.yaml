@@ -1,6 +1,9 @@
 global:
   fullnameOverride: scum  
 
+deployment:
+  replicas: 1
+
 # anyhting other than hostpath is impractical for now
 # I don't have a block device csi driver like cepth to test
 persistence:
